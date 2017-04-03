@@ -22,7 +22,7 @@ void PgmFunctions::open(const char* pgmin,const char* pgmout)
     {
         chi = fgetc(fio);
         fputc(chi, fir);
-        printf("%c",chi); 
+ 
     } while(chi != '\n');      //fin ligne 2
     
     fscanf(fio, "%ld %ld\n", &dimx, &dimy); //ligne 3
@@ -33,16 +33,79 @@ void PgmFunctions::open(const char* pgmin,const char* pgmout)
     taille = dimx*dimy;
     
 
-    pgmInit = new char[taille];
-    strcpy(pgmInit,"");
+    pgmInit = new unsigned char[taille];
+    
     for (i = 0; i<taille; i++)
     {
                 //printf(" %d ",chi);
                pgmInit[i] = (unsigned char)fgetc(fio);
     }
-    pgmTemp = new char[taille];
-    strcpy(pgmTemp,pgmInit);
+    pgmTemp = new unsigned char[taille];
+    copi();
 }
+
+
+void PgmFunctions::copi(void)
+{
+    long int i;
+    for (i=0; i < taille; i++)
+        pgmTemp[i] = pgmInit[i];
+}
+
+
+void PgmFunctions::rcopi(void)
+{
+    long int i;
+    for (i=0; i < taille; i++)
+        pgmInit[i] = pgmTemp[i];
+}
+
+void PgmFunctions::seuil(unsigned char seuil)
+{
+    long int i,j;
+    for (i = 0; i<dimy; i++)
+        for (j = 0; j<dimx; j++)
+        {
+            if(pgmInit[i*dimx + j]>seuil)
+                pgmTemp[i*dimx + j] = 255;
+            else 
+                pgmTemp[i*dimx + j] = 0;
+        }
+    rcopi();
+}
+
+
+void PgmFunctions::save()
+{
+    long int i,j;
+        for (i = 0; i<dimy; i++)
+        for (j = 0; j<dimx; j++)
+        {
+            fputc((unsigned char)pgmTemp[i*dimx + j], fir);
+ 
+        }
+}
+
+void PgmFunctions::select_bas()
+{
+        long int i,j;
+        bool ok;
+        for (i = 0; i<dimx; i++)
+        {
+            ok = true;
+        for (j = 0; j<dimy; j++)
+        {
+            if (ok)
+                {if (pgmTemp[taille -(i + j*dimx) - 1]==255)
+                ok = false;}//end ok
+            else pgmTemp[taille -(i + j*dimx) - 1]=0;//not ok
+        }//j
+        }//i
+
+        rcopi();
+}
+
+
 
 
 
@@ -52,14 +115,14 @@ PgmFunctions::PgmFunctions(const char* pgmin,const char* pgmout)
     pgmTemp = NULL;
     fir = NULL;
     fio = NULL;
-    printf("Pgmfunctions init 1");
     open(pgmin,pgmout);
 }
 
 PgmFunctions::~PgmFunctions()
 {
+    save();
     if (fio == NULL)
-        printf ("\nfio not open\n");
+        printf ("fio not open\n");
     else
     fclose(fio);
 

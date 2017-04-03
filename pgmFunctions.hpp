@@ -12,8 +12,8 @@
 class PgmFunctions
 {
     private:
-        char *pgmInit;
-        char *pgmTemp;
+        unsigned char *pgmInit;
+        unsigned char *pgmTemp;
         FILE *fir, *fio;
         long int dimx, dimy, nbg,taille;
     public:
@@ -23,19 +23,19 @@ class PgmFunctions
         void open(const char* pgmin,const char* pgmout);
         //copi pgmInit dans pgmTemp
         //pgmInit->pgmTemp
-    //    void copi(void);
+        void copi(void);
         //copi pgmTemp dans pgmInit
         //pgmTemp->pgmInit
-    //    void rcopi(void);
+        void rcopi(void);
         //place un pix a 255 si >min sinon 0
         //pgmInit->pgmTemp
-    //    void sup(char min);
+        void seuil(unsigned char seuil);
         //sauvegarde pgmTemp dans le fichier nomé
         //pgmTemp->file
-    //    void save(string pgm);
+        void save();
         //ne garde que le pixpgmel le plus bas d'une colone' 
         //pgmInit->pgmTemp
-    //    void lect_bas(void);
+        void select_bas();
         //complete les trous  -----lent
     //    void complete_ligne(void);
 

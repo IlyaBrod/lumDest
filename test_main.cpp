@@ -10,9 +10,9 @@
 
 int main()
 {
-    printf ("main first step\n");
 
     PgmFunctions test("./laser_R.pgm","./test_out.pgm");
-    
+    test.seuil(204);
+    test.select_bas();
     return 0;
 }
