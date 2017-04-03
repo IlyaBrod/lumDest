@@ -1,4 +1,7 @@
 #include "ppmFunctions.hpp"
+#define ppmR 1
+#define ppmG 2
+#define ppmB 3
 
 
 void getChannel(char entree[35],char sortie[35],int channel)

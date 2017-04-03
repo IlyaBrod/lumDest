@@ -9,6 +9,10 @@
 
 int main()
 {
+
+
+
+
     /**         IMPORTATION        **/
     unsigned char chi;
  
