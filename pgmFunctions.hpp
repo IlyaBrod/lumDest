@@ -1,13 +1,25 @@
 #ifndef pgmF
 #define pgmF
 
+//comment to desactive DEBUG print in all program
+#define DEBUG_PRINT
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#
+
 /*classe pgm    -> contien 2x l'image
                 -> les fonctions de traitements
                 -> les fonctions de sauvegarde.
+
+        ordre d'utilisation conseiller :
+            seuil
+            complete_ligne
+            select_bas
+
 */
 class PgmFunctions
 {
@@ -29,7 +41,7 @@ class PgmFunctions
         void rcopi(void);
         //place un pix a 255 si >min sinon 0
         //pgmInit->pgmTemp
-        void seuil(unsigned char seuil);
+        void seuil(unsigned char seuil = 204);
         //sauvegarde pgmTemp dans le fichier nomé
         //pgmTemp->file
         void save();
@@ -37,7 +49,9 @@ class PgmFunctions
         //pgmInit->pgmTemp
         void select_bas();
         //complete les trous  -----lent
-    //    void complete_ligne(void);
+        void complete_ligne(void);
+        //filtre passe bas
+        void passe_bas(int ordre = 1);
 
         //initialise les pointeurs
         //def : NULL NULL

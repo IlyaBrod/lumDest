@@ -9,12 +9,14 @@ void PgmFunctions::open(const char* pgmin,const char* pgmout)
     
     if ((fio = fopen(pgmin, "rb"))==NULL)
         printf ("\n\rOPEN : ERREUR : FILE doesn't exist");
+    #ifdef DEBUG_PRINT
     else printf("\n\rOPEN : SUCCESS\n");
-    
+    #endif //DEBUG_PRINT
     if ((fir = fopen(pgmout, "wb+"))==NULL)
         printf ("n\rOPEN : ERREUR : FILE cannot be created");
+    #ifdef DEBUG_PRINT
     else printf ("\n\rOPEN : SUCCESS again\n");
-
+    #endif //DEBUG_PRINT
     
     fscanf(fio, "%s\n", chaine);//ligne 1 (p5)
     fprintf(fir, "%s\n", chaine);    
@@ -72,6 +74,9 @@ void PgmFunctions::seuil(unsigned char seuil)
                 pgmTemp[i*dimx + j] = 0;
         }
     rcopi();
+    #ifdef DEBUG_PRINT
+    printf("seuil : %d : SUCCESS\n", seuil);
+    #endif
 }
 
 
@@ -84,6 +89,9 @@ void PgmFunctions::save()
             fputc((unsigned char)pgmTemp[i*dimx + j], fir);
  
         }
+        #ifdef DEBUG_PRINT
+        printf ("save : SUCCESS\n");
+        #endif //DEBUG_PRINT
 }
 
 void PgmFunctions::select_bas()
@@ -96,17 +104,91 @@ void PgmFunctions::select_bas()
         for (j = 0; j<dimy; j++)
         {
             if (ok)
-                {if (pgmTemp[taille -(i + j*dimx) - 1]==255)
+                {if (pgmInit[taille -(i + j*dimx) - 1]==255)
                 ok = false;}//end ok
             else pgmTemp[taille -(i + j*dimx) - 1]=0;//not ok
         }//j
         }//i
 
         rcopi();
+        #ifdef DEBUG_PRINT
+        printf("selection 1 pix / ligne : SUCCESS\n");
+        #endif //DEBUG_PRINT
 }
 
 
+void PgmFunctions::complete_ligne(void)
+{
+    //completion par la gauche
+    /* teste : {X 0+ 1- 1-
+    **          1+0+ 1- 1-   
+    **          X 0+ 1- 1-}
+    ** +(et) -ou
+    */
+        long int i,j;
+    for (i = 0; i<dimx-3; i++)//pas les 3 dernières
+        {
+        for (j = 1; j<dimy-1; j++)//pas la première ni la dernière
+        {
+                if (pgmInit[i + j*dimx]!=0)
+                {
+                    if ( (pgmInit[i+1 + j*dimx]==0) && (pgmInit[i+1 + (j+1)*dimx]==0) && (pgmInit[i +1 + (j-1)*dimx]==0) )
+                    {
+                        if ( ((pgmInit[i+2 + j*dimx]!=0) || (pgmInit[i+2 + (j+1)*dimx]!=0) || (pgmInit[i +2 + (j-1)*dimx]!=0))
+                            || (pgmInit[i+3 + j*dimx]!=0) || (pgmInit[i+3 + (j+1)*dimx]!=0) || (pgmInit[i +3 + (j-1)*dimx]!=0) )
+                            {
+                            pgmTemp[i+1 + j*dimx] = 255;
+                }}}
+        }//j
+        }//i
+        rcopi();
+        #ifdef DEBUG_PRINT
+        printf ("line completion : SUCCESS\n");
+        #endif //DEBUG_PRINT
 
+}
+
+void PgmFunctions::passe_bas(int ordre)
+{
+    #ifdef DEBUG_PRINT
+    printf("passe bas ordre : %d\n",ordre);
+    #endif //DEBUG_PRINT
+      long int i,j,score,nb_pts;
+    //mise a 0 de temps nessessaire
+    do {
+    for (i = 0; i<dimx; i++)
+        for (j = 0; j<dimy; j++)
+            pgmTemp[i + j*dimx]=0;
+   
+    //matrix : {{0.3}c {0.3}c {0.3}c}
+    for (i = 1; i<dimx-1; i++)
+        {
+            score = 0;
+            nb_pts =0;
+        for (j = 0; j<dimy; j++)//pas la première ni la dernière
+        {
+            //(pgmInit[i + j*dimx]!=0)
+            if (pgmInit[i -1 + j*dimx]!=0)
+                {score += j;
+                 nb_pts+=1; }
+            if (pgmInit[i + j*dimx]!=0)
+                {score += j;
+                 nb_pts+=1; }
+            if (pgmInit[i + 1 + j*dimx]!=0)
+                {score += j;
+                 nb_pts+=1; }
+        }//j
+        if (nb_pts != 0)
+            pgmTemp[i + dimx*(score/nb_pts)] = 255;
+
+        }//i
+        rcopi();
+        #ifdef DEBUG_PRINT
+        printf("passe_bas : SUCCESS\n");
+        #endif //DEBUG_PRINT
+        ordre--;
+    }while (ordre>0);
+}
 
 
 PgmFunctions::PgmFunctions(const char* pgmin,const char* pgmout)
