@@ -48,10 +48,13 @@ class PgmFunctions
         //ne garde que le pixpgmel le plus bas d'une colone' 
         //pgmInit->pgmTemp
         void select_bas();
+        void select_haut();
         //complete les trous  -----lent
         void complete_ligne(void);
         //filtre passe bas
         void passe_bas(int ordre = 1);
+
+        void pas_isole(void);
 
         //initialise les pointeurs
         //def : NULL NULL

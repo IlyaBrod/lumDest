@@ -117,6 +117,29 @@ void PgmFunctions::select_bas()
 }
 
 
+void PgmFunctions::select_haut()
+{
+        long int i,j;
+        bool ok;
+        for (i = 0; i<dimx; i++)
+        {
+            ok = true;
+        for (j = 0; j<dimy; j++)
+        {
+            if (ok)
+                {if (pgmInit[i + j*dimx]==255)
+                ok = false;}//end ok
+            else pgmTemp[i + j*dimx]=0;//not ok
+        }//j
+        }//i
+
+        rcopi();
+        #ifdef DEBUG_PRINT
+        printf("selection H 1 pix / ligne : SUCCESS\n");
+        #endif //DEBUG_PRINT
+}
+
+
 void PgmFunctions::complete_ligne(void)
 {
     //completion par la gauche
@@ -189,6 +212,33 @@ void PgmFunctions::passe_bas(int ordre)
         ordre--;
     }while (ordre>0);
 }
+
+
+ void PgmFunctions::pas_isole(void)
+ {
+     long int i,j,k;
+     bool ok;
+ char Mx[8]={1,1,0,-1,-1,-1,0,1};
+ char My[8]={0,-1,-1,-1,0,1,1,1};
+     for (i = 1; i<dimx-1; i++)
+        for (j = 1; j<dimy-1; j++)
+        {
+             ok = false;
+            //fputc((unsigned char)pgmTemp[j*dimx + i], fir);
+            if (pgmInit[j*dimx + i] != 0)
+                for (k=0;k<8;k++)
+                    if ((pgmInit[(j+My[k])*dimx + i + Mx[k]]) != 0)
+                        ok = true;
+            if (ok)
+                pgmTemp[j*dimx + i]= 255;
+            else 
+                pgmTemp[j*dimx + i]= 0;
+        }
+        rcopi();
+        #ifdef DEBUG_PRINT
+        printf("supretion des points solitaire : SUCCESS\n");
+        #endif //DEBUG_PRINT
+ }
 
 
 PgmFunctions::PgmFunctions(const char* pgmin,const char* pgmout)

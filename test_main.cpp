@@ -18,7 +18,9 @@ int main(int argc, char *argv[])
     PgmFunctions test(argv[1],argv[2]);
     test.seuil();
     test.complete_ligne();
-    test.select_bas();
-    test.passe_bas(30);
+    test.select_haut();
+    test.passe_bas(1);
+    test.pas_isole();
+    test.passe_bas(10);
     return 0;
 }
