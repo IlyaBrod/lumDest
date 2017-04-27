@@ -8,15 +8,16 @@ void PgmFunctions::open(const char* pgmin,const char* pgmout)
     long int i = 0;
     
     if ((fio = fopen(pgmin, "rb"))==NULL)
-        printf ("\n\rOPEN : ERREUR : FILE doesn't exist");
-    #ifdef DEBUG_PRINT
+        {printf ("\n\rOPEN : ERREUR : FILE doesn't exist");
+        exit(EXIT_FAILURE);}
+    #ifdef DEBUG_PRINT_pgmF
     else printf("\n\rOPEN : SUCCESS\n");
-    #endif //DEBUG_PRINT
+    #endif //DEBUG_PRINT_pgmF
     if ((fir = fopen(pgmout, "wb+"))==NULL)
         printf ("n\rOPEN : ERREUR : FILE cannot be created");
-    #ifdef DEBUG_PRINT
+    #ifdef DEBUG_PRINT_pgmF
     else printf ("\n\rOPEN : SUCCESS again\n");
-    #endif //DEBUG_PRINT
+    #endif //DEBUG_PRINT_pgmF
     
     fscanf(fio, "%s\n", chaine);//ligne 1 (p5)
     fprintf(fir, "%s\n", chaine);    
@@ -74,7 +75,7 @@ void PgmFunctions::seuil(unsigned char seuil)
                 pgmTemp[i*dimx + j] = 0;
         }
     rcopi();
-    #ifdef DEBUG_PRINT
+    #ifdef DEBUG_PRINT_pgmF
     printf("seuil : %d : SUCCESS\n", seuil);
     #endif
 }
@@ -89,9 +90,9 @@ void PgmFunctions::save()
             fputc((unsigned char)pgmTemp[i*dimx + j], fir);
  
         }
-        #ifdef DEBUG_PRINT
+        #ifdef DEBUG_PRINT_pgmF
         printf ("save : SUCCESS\n");
-        #endif //DEBUG_PRINT
+        #endif //DEBUG_PRINT_pgmF
 }
 
 void PgmFunctions::select_bas()
@@ -111,9 +112,9 @@ void PgmFunctions::select_bas()
         }//i
 
         rcopi();
-        #ifdef DEBUG_PRINT
+        #ifdef DEBUG_PRINT_pgmF
         printf("selection 1 pix / ligne : SUCCESS\n");
-        #endif //DEBUG_PRINT
+        #endif //DEBUG_PRINT_pgmF
 }
 
 
@@ -134,9 +135,9 @@ void PgmFunctions::select_haut()
         }//i
 
         rcopi();
-        #ifdef DEBUG_PRINT
+        #ifdef DEBUG_PRINT_pgmF
         printf("selection H 1 pix / ligne : SUCCESS\n");
-        #endif //DEBUG_PRINT
+        #endif //DEBUG_PRINT_pgmF
 }
 
 
@@ -165,17 +166,17 @@ void PgmFunctions::complete_ligne(void)
         }//j
         }//i
         rcopi();
-        #ifdef DEBUG_PRINT
+        #ifdef DEBUG_PRINT_pgmF
         printf ("line completion : SUCCESS\n");
-        #endif //DEBUG_PRINT
+        #endif //DEBUG_PRINT_pgmF
 
 }
 
 void PgmFunctions::passe_bas(int ordre)
 {
-    #ifdef DEBUG_PRINT
+    #ifdef DEBUG_PRINT_pgmF
     printf("passe bas ordre : %d\n",ordre);
-    #endif //DEBUG_PRINT
+    #endif //DEBUG_PRINT_pgmF
       long int i,j,score,nb_pts;
     //mise a 0 de temps nessessaire
     do {
@@ -206,9 +207,9 @@ void PgmFunctions::passe_bas(int ordre)
 
         }//i
         rcopi();
-        #ifdef DEBUG_PRINT
+        #ifdef DEBUG_PRINT_pgmF
         printf("passe_bas : SUCCESS\n");
-        #endif //DEBUG_PRINT
+        #endif //DEBUG_PRINT_pgmF
         ordre--;
     }while (ordre>0);
 }
@@ -235,9 +236,9 @@ void PgmFunctions::passe_bas(int ordre)
                 pgmTemp[j*dimx + i]= 0;
         }
         rcopi();
-        #ifdef DEBUG_PRINT
+        #ifdef DEBUG_PRINT_pgmF
         printf("supretion des points solitaire : SUCCESS\n");
-        #endif //DEBUG_PRINT
+        #endif //DEBUG_PRINT_pgmF
  }
 
 

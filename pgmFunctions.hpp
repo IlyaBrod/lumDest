@@ -2,7 +2,7 @@
 #define pgmF
 
 //comment to desactive DEBUG print in all program
-#define DEBUG_PRINT
+#define DEBUG_PRINT_pgmF
 
 
 #include <stdio.h>
