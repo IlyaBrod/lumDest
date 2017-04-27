@@ -65,3 +65,74 @@ void getChannel(char entree[35],char sortie[35],int channel)
     fclose(fio);
     fclose(fir);
 }
+
+
+
+//,std::vector<int[2]> points
+void coloration(char entree[35], char sortie[35])
+{
+
+/**         IMPORTATION        **/
+    unsigned char chi;
+ 
+    FILE *fio, *fir;
+
+    long int nbg;
+    long int i, j, dimx, dimy, taille;
+    char entreeP[35],sortieP[35];
+    strcpy(entreeP,entree);
+    strcpy(sortieP,sortie);
+    char chaine[10];
+ 
+    strcat(entreeP, ".pgm");
+    strcat(sortieP, ".ppm");
+    printf("\t%s%s \n\t%s%s\n","Input : ",entreeP,"Output : ",sortieP);
+ 
+    printf("\t%s","OPENING\t");
+    fio = fopen(entreeP, "rb");
+    fir = fopen(sortieP, "wb+");
+ 
+    if (fio == NULL) printf("Error: Input file doesn't exist\n");
+    else if (fir == NULL) printf("Error: Impossible to create output file\n");
+    else printf("%s\n","SUCESS");
+
+    //Creation d'entête
+    fscanf(fio, "%s\n", chaine);
+    fprintf(fir, "%s\n", "P6");
+    do
+    {
+        chi = fgetc(fio);
+        fputc(chi, fir); 
+    } while(chi != '\n');
+ 
+    fscanf(fio, "%ld %ld\n", &dimx, &dimy);
+    fprintf(fir, "%ld %ld\n", dimx, dimy);
+    
+    fscanf(fio, "%ld\n", &nbg);
+    fprintf(fir, "%ld\n", nbg);
+ 
+    printf("\tFormat : dimx=%ld dimy=%ld nbg=%ld\n", dimx, dimy, nbg);
+
+    taille = dimx*dimy;
+    
+    //lecture des pixels
+    for (i = 0; i<taille; i++)
+    {
+        chi = (unsigned char)fgetc(fio);
+        if(chi==0)
+        {
+            fputc(0, firprintf(" %d ",chi););
+            fputc(0, fir);
+            fputc(0, fir);
+        }
+        else
+        {
+            fputc(0, fir);
+            fputc(255, fir);
+            fputc(0, fir);
+        }
+    }
+
+    fclose(fio);
+    fclose(fir);
+}
