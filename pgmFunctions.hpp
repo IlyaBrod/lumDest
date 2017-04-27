@@ -8,8 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <vector>
 
-#
 
 /*classe pgm    -> contien 2x l'image
                 -> les fonctions de traitements
@@ -21,6 +21,7 @@
             select_bas
 
 */
+
 class PgmFunctions
 {
     private:
@@ -28,7 +29,9 @@ class PgmFunctions
         unsigned char *pgmTemp;
         FILE *fir, *fio;
         long int dimx, dimy, nbg,taille;
-    public:
+        std::vector<long int> point_extremite_x;
+        std::vector<long int> point_extremite_y;
+        public:
         //stock pgm dans pgmInit
         //file->PgmInit
         //file->out
@@ -53,8 +56,14 @@ class PgmFunctions
         void complete_ligne(void);
         //filtre passe bas
         void passe_bas(int ordre = 1);
-
+        //ellimine les pixels isolés
         void pas_isole(void);
+        //detecte les points extremité
+        //pgmInit -> point extremité x, point extremité y
+        void capt_point_extremite(void);
+        //captures les point extremité sur pgmTemp
+        //fx de debuggage. (juste pour verifier que ça marche.)
+        void pgm_point_extremiter(void);
 
         //initialise les pointeurs
         //def : NULL NULL
