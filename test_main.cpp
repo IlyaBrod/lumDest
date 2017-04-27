@@ -3,7 +3,7 @@
 #include <string.h>
 #include <math.h>
 
-//#include "ppmFunctions.hpp"
+#include "ppmFunctions.hpp"
 #include "pgmFunctions.hpp"
 
 //michel.chapron1@gmail.com
@@ -22,5 +22,11 @@ int main(int argc, char *argv[])
     test.passe_bas(1);
     test.pas_isole();
     test.passe_bas(10);
+
+    test.capt_point_extremite();
+    test.pgm_point_extremiter();
+    
+    test.coloration("COLORISATION");
+
     return 0;
 }

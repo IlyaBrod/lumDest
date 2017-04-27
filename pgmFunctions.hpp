@@ -65,12 +65,12 @@ class PgmFunctions
         //fx de debuggage. (juste pour verifier que ça marche.)
         void pgm_point_extremiter(void);
 
-
-
+        //colorize pixels #Ilya
+        void coloration(const char sortie[35]);
 
         //accesseur
         unsigned char* get_pgm(void);
-    
+        unsigned char* get_pgm_tmp(void);
 
         //initialise les pointeurs
         //def : NULL NULL

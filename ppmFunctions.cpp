@@ -67,14 +67,14 @@ void getChannel(char entree[35],char sortie[35],int channel)
 }
 
 
-void coloration(char entree[35], char sortie[35],unsigned char *points)
+/*
+void coloration(char entree[35], char sortie[35],unsigned char *points,unsigned char *enter)
 {
 
-/**         IMPORTATION        **/
     unsigned char chi;
  
     FILE *fio, *fir;
-
+    unsigned char chi2;
     long int nbg;
     long int i, j, dimx, dimy, taille;
     char entreeP[35],sortieP[35];
@@ -120,7 +120,7 @@ void coloration(char entree[35], char sortie[35],unsigned char *points)
         chi = (unsigned char)fgetc(fio);
         if(chi==0)
         {
-            fputc(0, firprintf(" %d ",chi););
+            fputc(0, fir);
             fputc(0, fir);
             fputc(0, fir);
         }
@@ -140,4 +140,4 @@ void coloration(char entree[35], char sortie[35],unsigned char *points)
 
     fclose(fio);
     fclose(fir);
-}
+}*/

@@ -287,6 +287,10 @@ unsigned char* PgmFunctions::get_pgm(void)
 {
     return pgmInit;
 }
+unsigned char* PgmFunctions::get_pgm_tmp(void)
+{
+    return pgmTemp;
+}
 
 PgmFunctions::PgmFunctions(const char* pgmin,const char* pgmout)
 {
@@ -318,4 +322,51 @@ PgmFunctions::~PgmFunctions()
         printf ("pgmTemp not open\n");
     else
     free(pgmTemp);
+}
+
+
+void PgmFunctions::coloration(const char sortie[35])
+{
+    FILE *fir;
+
+    unsigned char* to_color = get_pgm_tmp();
+    unsigned char* color = get_pgm();
+    unsigned char chi,chi_p;
+
+    //Create output
+    char sortieP[35];
+    strcpy(sortieP,sortie);
+    strcat(sortieP, ".ppm");
+    fir = fopen(sortieP, "wb+");
+    if (fir == NULL) printf("Error: Impossible to create output file\n");
+    fprintf(fir, "%s\n", "P6");
+    fprintf(fir, "%s\n", "#SpreadLove");
+    fprintf(fir, "%ld %ld\n", dimx,dimy);
+    fprintf(fir, "%s\n","255");
+
+    for (long int i = 0; i<dimx*dimy; i++)
+    {
+        chi_p = to_color[i];
+        chi = color[i];
+
+        if(chi==0)
+        {
+            fputc(0, fir);
+            fputc(0, fir);
+            fputc(0, fir);
+        }
+        else if(chi_p!=0)
+        {
+            fputc(255,fir);
+            fputc(0,fir);
+            fputc(0,fir);
+        }
+        else
+        {
+            fputc(255, fir);
+            fputc(255, fir);
+            fputc(255, fir);
+        }
+    }
+
 }
