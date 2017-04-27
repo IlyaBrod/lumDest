@@ -18,5 +18,4 @@ void getChannel(char entree[35],char sortie[35],int channel);
  * @param sortie Output image name witout ".ppm"
  * @param  points List of points int[2]
  */
-void coloration(char entree[35], char sortie[35]);
-//,std::vector<int[2]> points
+void coloration(char entree[35], char sortie[35],unsigned char *points);

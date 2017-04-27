@@ -67,9 +67,7 @@ void getChannel(char entree[35],char sortie[35],int channel)
 }
 
 
-
-//,std::vector<int[2]> points
-void coloration(char entree[35], char sortie[35])
+void coloration(char entree[35], char sortie[35],unsigned char *points)
 {
 
 /**         IMPORTATION        **/
@@ -118,6 +116,7 @@ void coloration(char entree[35], char sortie[35])
     //lecture des pixels
     for (i = 0; i<taille; i++)
     {
+        chi2 = points[i];
         chi = (unsigned char)fgetc(fio);
         if(chi==0)
         {
@@ -125,11 +124,17 @@ void coloration(char entree[35], char sortie[35])
             fputc(0, fir);
             fputc(0, fir);
         }
+        else if(chi2!=0)
+        {
+            fputc(255,fir);
+            fputc(0,fir);
+            fputc(0,fir);
+        }
         else
         {
-            fputc(0, fir);
             fputc(255, fir);
-            fputc(0, fir);
+            fputc(255, fir);
+            fputc(255, fir);
         }
     }
 
