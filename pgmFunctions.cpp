@@ -242,6 +242,48 @@ void PgmFunctions::passe_bas(int ordre)
  }
 
 
+void PgmFunctions::capt_point_extremite(void)
+{
+    long int i,j,k;
+    
+     char voisin;
+ char Mx[8]={1,1,0,-1,-1,-1,0,1};
+ char My[8]={0,-1,-1,-1,0,1,1,1};
+     for (i = 1; i<dimx-1; i++)
+        for (j = 1; j<dimy-1; j++)
+        {
+             voisin = 0;
+            //fputc((unsigned char)pgmTemp[j*dimx + i], fir);
+            if (pgmInit[j*dimx + i] != 0)
+                for (k=0;k<8;k++)
+                    if ((pgmInit[(j+My[k])*dimx + i + Mx[k]]) != 0)
+                        voisin++;
+            if (voisin == 1)
+            {
+                point_extremite_x.push_back(i);
+                point_extremite_y.push_back(j);
+            }
+        }
+        #ifdef DEBUG_PRINT_pgmF
+        printf("recolte des points extrémités : SUCCESS\n");
+        #endif //DEBUG_PRINT_pgmF
+}
+
+void PgmFunctions::pgm_point_extremiter(void)
+{
+    long int i,j;
+    //mise a 0 de tmp
+        for (i = 0; i<dimx; i++)
+        for (j = 0; j<dimy; j++)
+            pgmTemp[i + j*dimx]=0;
+        
+        for (i= 0;i < point_extremite_x.size();i++)
+            pgmTemp[point_extremite_x[i]+(point_extremite_y[i]*dimx)]= 255;
+
+        
+}
+
+
 PgmFunctions::PgmFunctions(const char* pgmin,const char* pgmout)
 {
     pgmInit = NULL;
