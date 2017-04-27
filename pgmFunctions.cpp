@@ -283,6 +283,10 @@ void PgmFunctions::pgm_point_extremiter(void)
         
 }
 
+unsigned char* PgmFunctions::get_pgm(void)
+{
+    return pgmInit;
+}
 
 PgmFunctions::PgmFunctions(const char* pgmin,const char* pgmout)
 {

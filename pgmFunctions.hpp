@@ -65,6 +65,13 @@ class PgmFunctions
         //fx de debuggage. (juste pour verifier que ça marche.)
         void pgm_point_extremiter(void);
 
+
+
+
+        //accesseur
+        unsigned char* get_pgm(void);
+    
+
         //initialise les pointeurs
         //def : NULL NULL
         PgmFunctions(const char* pgmin,const char* pgmout);
