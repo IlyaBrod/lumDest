@@ -70,8 +70,8 @@ class PgmFunctions
 
         //accesseur
         unsigned char* get_pgm(void);
-    
-
+        unsigned char* get_pgm_tmp(void);
+        
         //initialise les pointeurs
         //def : NULL NULL
         PgmFunctions(const char* pgmin,const char* pgmout);

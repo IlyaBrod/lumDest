@@ -287,6 +287,10 @@ unsigned char* PgmFunctions::get_pgm(void)
 {
     return pgmInit;
 }
+unsigned char* PgmFunctions::get_pgm_tmp(void)
+{
+    return pgmTemp;
+}
 
 PgmFunctions::PgmFunctions(const char* pgmin,const char* pgmout)
 {
