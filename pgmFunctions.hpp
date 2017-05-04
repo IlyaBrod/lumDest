@@ -68,14 +68,14 @@ class PgmFunctions
         //colorize pixels #Ilya
         void coloration(const char sortie[35]);
 
+        //traçage de lignes #Bresenheim
+        void fill_Lines(unsigned int X[2], unsigned int Y[2]);
+        void trace_Lines();
+
         //accesseur
         unsigned char* get_pgm(void);
         unsigned char* get_pgm_tmp(void);
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> cba422dd4c704c6079c140628db1d3fb97f896bc
         //initialise les pointeurs
         //def : NULL NULL
         PgmFunctions(const char* pgmin,const char* pgmout);

@@ -28,5 +28,6 @@ int main(int argc, char *argv[])
     
     test.coloration("COLORISATION");
 
+    test.trace_Lines();
     return 0;
 }

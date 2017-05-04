@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <math.h>
 #include "pgmFunctions.hpp"
 
 void PgmFunctions::open(const char* pgmin,const char* pgmout)
@@ -368,5 +369,59 @@ void PgmFunctions::coloration(const char sortie[35])
             fputc(255, fir);
         }
     }
+
+}
+
+void PgmFunctions::fill_Lines(unsigned int X[2], unsigned int Y[2])
+{
+    copi();
+    unsigned int deltax = abs(X[1]-X[0]);
+    unsigned int deltay = abs(Y[1]-Y[0]);
+    float error =0;
+    float deltaerr = (float)deltay/deltax;
+
+    int y=Y[0];
+    for(int x=X[0];x<X[1];x++)
+    {
+        pgmTemp[dimx*y+x] = 255;
+        error=error+deltaerr;
+        
+        
+        while(error>0.5)
+        {
+            if (Y[0] < Y[1])
+                y++;
+            else
+                y--;
+            pgmTemp[dimx*y+x] = 255;
+            error = error -1.0;
+        }
+        
+    }
+    rcopi();
+}
+
+
+
+
+
+
+
+void PgmFunctions::trace_Lines()
+{
+    int taille = point_extremite_x.size();
+    //point_extremite_y
+    unsigned int x[2];
+    unsigned int y[2];
+    for(int i=1;i<taille-1;i+=2)
+    {
+        x[0] = point_extremite_x[i];
+        x[1] = point_extremite_x[i+1];
+        y[0] = point_extremite_y[i];
+        y[1] = point_extremite_y[i+1];
+        fill_Lines(x,y);
+
+    }
+    
 
 }
