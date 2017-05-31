@@ -302,6 +302,13 @@ PgmFunctions::PgmFunctions(const char* pgmin,const char* pgmout)
     open(pgmin,pgmout);
 }
 
+void PgmFunctions::point_un(long int point[2])
+{
+    point[0] = point_extremite_x[0];
+    point[1] = point_extremite_y[0];
+}
+
+
 PgmFunctions::~PgmFunctions()
 {
     save();

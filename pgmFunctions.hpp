@@ -2,7 +2,7 @@
 #define pgmF
 
 //comment to desactive DEBUG print in all program
-#define DEBUG_PRINT_pgmF
+//#define DEBUG_PRINT_pgmF
 
 
 #include <stdio.h>
@@ -24,7 +24,7 @@
 
 class PgmFunctions
 {
-    private:
+    protected:
         unsigned char *pgmInit;
         unsigned char *pgmTemp;
         FILE *fir, *fio;
@@ -71,7 +71,7 @@ class PgmFunctions
         //traçage de lignes #Bresenheim
         void fill_Lines(unsigned int X[2], unsigned int Y[2]);
         void trace_Lines();
-
+        void point_un(long int point[2]);
         //accesseur
         unsigned char* get_pgm(void);
         unsigned char* get_pgm_tmp(void);
