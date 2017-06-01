@@ -284,6 +284,20 @@ void PgmFunctions::pgm_point_extremiter(void)
         
 }
 
+void PgmFunctions::pgm_uv_reader(void)
+{
+    for (long int i = 0; i<dimx-1; i++)
+        for (long int j = 0; j<dimy-1; j++)
+        {
+            if (pgmInit[i + j*dimx]>0)
+                {
+                    point_u.push_back(i);
+                    point_v.push_back(j);
+                }
+        }
+}
+
+
 unsigned char* PgmFunctions::get_pgm(void)
 {
     return pgmInit;
@@ -304,8 +318,8 @@ PgmFunctions::PgmFunctions(const char* pgmin,const char* pgmout)
 
 void PgmFunctions::point_un(long int point[2])
 {
-    point[0] = point_extremite_x[0];
-    point[1] = point_extremite_y[0];
+    point[0] = point_extremite_x[2];
+    point[1] = point_extremite_y[2];
 }
 
 

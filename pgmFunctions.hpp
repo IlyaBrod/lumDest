@@ -31,7 +31,11 @@ class PgmFunctions
         long int dimx, dimy, nbg,taille;
         std::vector<long int> point_extremite_x;
         std::vector<long int> point_extremite_y;
+        
+
         public:
+        std::vector<long int> point_u;
+        std::vector<long int> point_v;
         //stock pgm dans pgmInit
         //file->PgmInit
         //file->out
@@ -65,6 +69,7 @@ class PgmFunctions
         //fx de debuggage. (juste pour verifier que ça marche.)
         void pgm_point_extremiter(void);
 
+        void pgm_uv_reader(void);
         //colorize pixels #Ilya
         void coloration(const char sortie[35]);
 
@@ -75,6 +80,9 @@ class PgmFunctions
         //accesseur
         unsigned char* get_pgm(void);
         unsigned char* get_pgm_tmp(void);
+
+        
+
 
         //initialise les pointeurs
         //def : NULL NULL

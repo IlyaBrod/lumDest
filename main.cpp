@@ -14,7 +14,7 @@
 int main(int argc, char *argv[])
 {
     if (argc <= 2)
-        { printf ("completez l'apele du programe avec \"./pgm_source ./pgm_cible\"\n");
+        { printf ("completez l'appel du programe avec \"./pgm_source ./pgm_cible\"\n");
             exit(1);}
 
     printf("%s\n%s\n",argv[1],argv[2]);
@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
     TGM worker(argv[1],argv[2]);
 
     worker.calcule_XYZ();
+
+    printf("DONE\n");
 
     return 0;
 }
