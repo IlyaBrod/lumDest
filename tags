@@ -1,0 +1,12 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Scan3D.py	Scan3D.py	1;"	kind:file	line:1
+WavefrontOBJ.py	WavefrontOBJ.py	1;"	kind:file	line:1
+countLeft	Scan3D.py	/^countLeft = len(onlyfiles)$/;"	kind:variable	line:27
+csvToObj	WavefrontOBJ.py	/^def csvToObj(inputDir,outputName):$/;"	kind:function	line:25
+index	Scan3D.py	/^index = 0$/;"	kind:variable	line:28
+onlyfiles	Scan3D.py	/^onlyfiles = [f for f in listdir(".\/Images\/Color") if isfile(join(".\/Images\/Color", f))]$/;"	kind:variable	line:25

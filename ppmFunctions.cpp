@@ -1,3 +1,23 @@
+/*
+  This file is part of LumDest.
+
+    Foobar is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    LumDest is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with LumDest.  If not, see <http://www.gnu.org/licenses/>.
+
+Copyright 2017 Brodoline Ilya & Pichon Hugot
+
+*/
+
 #include "ppmFunctions.hpp"
 #define ppmR 1
 #define ppmG 2
@@ -18,18 +38,15 @@ void getChannel(char entree[35],char sortie[35],int channel)
     strcpy(sortieP,sortie);
     char chaine[10];
  
-    printf("%s %d\n","* Extract color channel",channel);
-    strcat(entreeP, ".ppm");
-    strcat(sortieP, ".pgm");
-    printf("\t%s%s \n\t%s%s\n","Input : ",entreeP,"Output : ",sortieP);
+    //printf("\t%s%s \n\t%s%s\n","Input : ",entreeP,"Output : ",sortieP);
  
-    printf("\t%s","OPENING\t");
+    //printf("\t%s","OPENING\t");
     fio = fopen(entreeP, "rb");
     fir = fopen(sortieP, "wb+");
  
-    if (fio == NULL) printf("Error: Input file doesn't exist\n");
-    else if (fir == NULL) printf("Error: Impossible to create output file\n");
-    else printf("%s\n","SUCESS");
+    if (fio == NULL) printf("ExtractChannelError: Input %s file doesn't exist\n",entreeP);
+    else if (fir == NULL) printf("ExtractChannelError: Impossible to create output %s file\n",sortieP);
+    //else printf("%s\n","SUCESS");
 
     //Creation d'entête
     fscanf(fio, "%s\n", chaine);
@@ -46,7 +63,7 @@ void getChannel(char entree[35],char sortie[35],int channel)
     fscanf(fio, "%ld\n", &nbg);
     fprintf(fir, "%ld\n", nbg);
  
-    printf("\tFormat : dimx=%ld dimy=%ld nbg=%ld\n", dimx, dimy, nbg);
+    //printf("\tFormat : dimx=%ld dimy=%ld nbg=%ld\n", dimx, dimy, nbg);
 
     taille = dimx*dimy;
     

@@ -1,18 +1,7 @@
 {
     "files.associations": {
-        "cstdarg": "cpp",
-        "cstdlib": "cpp",
-        "cstddef": "cpp",
-        "*hpp*hpp*hpp*hpp*hpp*hpp*hppcwchar": "cpp",
-        "cstring": "cpp",
-        "cstdint": "cpp",
-        "*hpp*h*h*h*h*hcctype": "cpp",
-        "cwctype": "cpp",
-        "*hpp*hpp*hpp*hppctime": "cpp",
-        "*hpp*hpp*hpp*hpp*hpp*hcstdio": "cpp",
-        "*hpp*hpp*hpp*hinitializer_list": "cpp",
-        "cmath": "cpp",
-        "*hpp*hpp*hpp*hpp*hppslist": "cpp",
-        "*hpp*hpp*hpp*hppinitializer_list": "cpp"
-    }
+        "chrono": "cpp",
+        "LICENSE": "cpp"
+    },
+    "python.linting.pylintEnabled": false
 }

@@ -1,3 +1,23 @@
+/*
+  This file is part of LumDest.
+
+    Foobar is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    LumDest is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with LumDest.  If not, see <http://www.gnu.org/licenses/>.
+
+Copyright 2017 Brodoline Ilya & Pichon Hugot
+
+*/
+
 #include "tgm.hpp"
 
 TGM::TGM(const char* pgmin,const char* pgmout)
@@ -43,13 +63,6 @@ void TGM::calcule_XYZ()
     pic -> point_un(point); //récupération de l'extrémité
     readCSV(); //récupération de la matriec de calobrage
 
-    point[0] = 787;
-    point[1] = 1283;
-
-    //point[0] = 877;
-    //point[1] = 1173;
-
-
     double lig1[3];
     lig1[0] = (M[8]*point[0]-M[0]);
     lig1[1] = (M[9]*point[0]-M[1]);
@@ -68,11 +81,11 @@ void TGM::calcule_XYZ()
     double result[2];
     cramer(lig1,lig2,result);
 
-    //printf("2D point : X=%ld Y=%ld\n", point[0],point[1]);
-    //printf("3D point : X=%f Y=%f Z=%f\n",result[0],result[1],0.0);
+    printf("2D point : X=%ld Y=%ld\n", point[0],point[1]);
+    printf("3D point : X=%f Y=%f Z=%f\n",result[0],result[1],0.0);
 
     double laser_x = result[0];
-
+    printf("X = %f\n",laser_x);
     /* CALCUL DES POINTS Y,Z */
 
     pic ->pgm_uv_reader();
@@ -95,7 +108,6 @@ void TGM::calcule_XYZ()
         z.push_back(result[1]);
     }
 
-     saveXYZ();
 }
 
 
@@ -120,8 +132,8 @@ void TGM::saveXYZ(const char* outputName)
     FILE *fir;
 
     fir = fopen(outputName, "wb+");
-    if (fir == NULL) printf("Error: Impossible to create output XYZ file\n");
-    fprintf(fir,"X,Y,Z\n");
+    if (fir == NULL) printf("ExportError: Impossible to create output XYZ file\n");
+    fprintf(fir,"X;Y;Z\n");
 
     for(long int i=0;i<x.size();i++)
     {
@@ -133,5 +145,5 @@ void TGM::saveXYZ(const char* outputName)
 
 TGM::~TGM()
 {
-    free(pic);
+    delete(pic);
 }

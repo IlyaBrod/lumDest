@@ -1,3 +1,23 @@
+/*
+  This file is part of LumDest.
+
+    Foobar is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    LumDest is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with LumDest.  If not, see <http://www.gnu.org/licenses/>.
+
+Copyright 2017 Brodoline Ilya & Pichon Hugot
+
+*/
+
 #include <cstdlib>
 #include <math.h>
 #include "pgmFunctions.hpp"
@@ -9,13 +29,13 @@ void PgmFunctions::open(const char* pgmin,const char* pgmout)
     long int i = 0;
     
     if ((fio = fopen(pgmin, "rb"))==NULL)
-        {printf ("\n\rOPEN : ERREUR : FILE doesn't exist");
+        {printf ("ComputingError : File %s doesn't exist\n",pgmin);
         exit(EXIT_FAILURE);}
     #ifdef DEBUG_PRINT_pgmF
     else printf("\n\rOPEN : SUCCESS\n");
     #endif //DEBUG_PRINT_pgmF
     if ((fir = fopen(pgmout, "wb+"))==NULL)
-        printf ("n\rOPEN : ERREUR : FILE cannot be created");
+        printf ("ComputingError : File %s cannot be created\n",pgmout);
     #ifdef DEBUG_PRINT_pgmF
     else printf ("\n\rOPEN : SUCCESS again\n");
     #endif //DEBUG_PRINT_pgmF
@@ -318,8 +338,8 @@ PgmFunctions::PgmFunctions(const char* pgmin,const char* pgmout)
 
 void PgmFunctions::point_un(long int point[2])
 {
-    point[0] = point_extremite_x[2];
-    point[1] = point_extremite_y[2];
+    point[0] = point_extremite_x[0];
+    point[1] = point_extremite_y[0];
 }
 
 
@@ -360,7 +380,7 @@ void PgmFunctions::coloration(const char sortie[35])
     strcpy(sortieP,sortie);
     strcat(sortieP, ".ppm");
     fir = fopen(sortieP, "wb+");
-    if (fir == NULL) printf("Error: Impossible to create output file\n");
+    if (fir == NULL) printf("ColorationError: Impossible to create output file\n");
     fprintf(fir, "%s\n", "P6");
     fprintf(fir, "%s\n", "#SpreadLove");
     fprintf(fir, "%ld %ld\n", dimx,dimy);
@@ -421,9 +441,6 @@ void PgmFunctions::fill_Lines(unsigned int X[2], unsigned int Y[2])
     }
     rcopi();
 }
-
-
-
 
 
 
