@@ -30,6 +30,12 @@ Copyright 2017 Brodoline Ilya & Pichon Hugot
 
 //michel.chapron1@gmail.com
 
+
+/* MAIN_ ARGV
+** argv(1) : ppm file in
+** argv(2) : pgm file out
+** argv(3) : csv file out
+*/
 int main(int argc, char *argv[])
 {
 

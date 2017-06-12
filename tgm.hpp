@@ -41,6 +41,8 @@ class TGM
         TGM(const char* pgmin,const char* pgmout = "TGMout.pgm");
         void open(const char* pgmin,const char* pgmout = "TGMout.pgm");
         void calcule_XYZ();
+
+        
         //exporc of values
         void saveXYZ(const char* outputName="XYZ.cvs");
         ~TGM();
