@@ -1,0 +1,1 @@
+scatter3(X,Y,Z);
