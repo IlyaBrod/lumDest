@@ -27,6 +27,10 @@ class TGM
 {
     protected:
         PgmFunctions* pic;
+
+        //_x _y _z :                                        \
+            contienent la position 3D des points de l'image
+
         std::vector<double> x;
         std::vector<double> y;
         std::vector<double> z;
@@ -41,9 +45,23 @@ class TGM
         TGM(const char* pgmin,const char* pgmout = "TGMout.pgm");
         void open(const char* pgmin,const char* pgmout = "TGMout.pgm");
         void calcule_XYZ();
-        //exporc of values
+
+
+        //export of values
         void saveXYZ(const char* outputName="XYZ.cvs");
         ~TGM();
 };
 
 #endif
+
+/*        _
+        |\_,,____
+        ( o__o \/
+        / (..) \
+       (_ )--( _)
+       / ""--"" \
+,===,=| |-,,,,-| |==,==
+|d  |  WW   |  WW   |
+|s  |   |   |   |   |
+*/
+

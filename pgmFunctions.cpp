@@ -73,15 +73,20 @@ void PgmFunctions::copi(void)
 {
     long int i;
     for (i=0; i < taille; i++)
-        pgmTemp[i] = pgmInit[i];
+        pgmTemp[i] = pgmInit[i];//copi pxl par pxl
 }
 
 
 void PgmFunctions::rcopi(void)
 {
-    long int i;
-    for (i=0; i < taille; i++)
-        pgmInit[i] = pgmTemp[i];
+    //long int i;
+    //for (i=0; i < taille; i++)
+    //    pgmInit[i] = pgmTemp[i];//copi pxl par pxl
+
+    //                  V2
+    unsigned char* tmp = pgmInit;
+    pgmInit = pgmTemp;
+    pgmTemp = tmp;
 }
 
 void PgmFunctions::seuil(unsigned char seuil)
@@ -90,15 +95,15 @@ void PgmFunctions::seuil(unsigned char seuil)
     for (i = 0; i<dimy; i++)
         for (j = 0; j<dimx; j++)
         {
-            if(pgmInit[i*dimx + j]>seuil)
+            if(pgmInit[i*dimx + j]>seuil) //test du seuil pxl/pxl
                 pgmTemp[i*dimx + j] = 255;
             else 
                 pgmTemp[i*dimx + j] = 0;
         }
-    rcopi();
+    rcopi();//replace dans imInit la sortie du filtre
     #ifdef DEBUG_PRINT_pgmF
     printf("seuil : %d : SUCCESS\n", seuil);
-    #endif
+    #endif //DEBUG_PRINT_pgmF
 }
 
 
@@ -106,11 +111,9 @@ void PgmFunctions::save()
 {
     long int i,j;
         for (i = 0; i<dimy; i++)
-        for (j = 0; j<dimx; j++)
-        {
-            fputc((unsigned char)pgmTemp[i*dimx + j], fir);
- 
-        }
+            for (j = 0; j<dimx; j++)
+                fputc((unsigned char)pgmTemp[i*dimx + j], fir);
+            
         #ifdef DEBUG_PRINT_pgmF
         printf ("save : SUCCESS\n");
         #endif //DEBUG_PRINT_pgmF
@@ -119,7 +122,7 @@ void PgmFunctions::save()
 void PgmFunctions::select_bas()
 {
         long int i,j;
-        bool ok;
+        bool ok; //passe a true si un pxl a été détecté sur une colone **gain de temps
         for (i = 0; i<dimx; i++)
         {
             ok = true;
@@ -165,15 +168,15 @@ void PgmFunctions::select_haut()
 void PgmFunctions::complete_ligne(void)
 {
     //completion par la gauche
-    /* teste : {X 0+ 1- 1-
-    **          1+0+ 1- 1-   
-    **          X 0+ 1- 1-}
-    ** +(et) -ou
+    /* teste : {X  0+ 1- 1-
+    **          1+ 0+ 1- 1-   
+    **          X  0+ 1- 1-}
+    ** +(~et) -(~ou) X(~sans importance) filtre placé en 1+(position 0-1)
     */
         long int i,j;
     for (i = 0; i<dimx-3; i++)//pas les 3 dernières
         {
-        for (j = 1; j<dimy-1; j++)//pas la première ni la dernière
+        for (j = 1; j<dimy-1; j++)//pas la première ni la dernière colone
         {
                 if (pgmInit[i + j*dimx]!=0)
                 {
@@ -205,7 +208,8 @@ void PgmFunctions::passe_bas(int ordre)
         for (j = 0; j<dimy; j++)
             pgmTemp[i + j*dimx]=0;
    
-    //matrix : {{0.3}c {0.3}c {0.3}c}
+    //matrix : {{0.3}c {0.3}c {0.3}c}\
+    autoformé en fonction du nb de point par colone
     for (i = 1; i<dimx-1; i++)
         {
             score = 0;
@@ -240,8 +244,8 @@ void PgmFunctions::passe_bas(int ordre)
  {
      long int i,j,k;
      bool ok;
- char Mx[8]={1,1,0,-1,-1,-1,0,1};
- char My[8]={0,-1,-1,-1,0,1,1,1};
+ char Mx[8]={1,1,0,-1,-1,-1,0,1};       //matrice de lecture des pixels d,hd,h,hg,g,bg,b,bd
+ char My[8]={0,-1,-1,-1,0,1,1,1};       //-------------------------------------------------
      for (i = 1; i<dimx-1; i++)
         for (j = 1; j<dimy-1; j++)
         {
@@ -268,18 +272,18 @@ void PgmFunctions::capt_point_extremite(void)
     long int i,j,k;
     
      char voisin;
- char Mx[8]={1,1,0,-1,-1,-1,0,1};
- char My[8]={0,-1,-1,-1,0,1,1,1};
+ char Mx[8]={1,1,0,-1,-1,-1,0,1};//matrice de lecture des pixels d,hd,h,hg,g,bg,b,bd
+ char My[8]={0,-1,-1,-1,0,1,1,1};//-------------------------------------------------
      for (i = 1; i<dimx-1; i++)
-        for (j = 1; j<dimy-1; j++)
+        for (j = 1; j<dimy-1; j++) //tout les pixel de l'image sauf les exterieurs pure
         {
              voisin = 0;
             //fputc((unsigned char)pgmTemp[j*dimx + i], fir);
-            if (pgmInit[j*dimx + i] != 0)
+            if (pgmInit[j*dimx + i] != 0) //si un pxl n'est pas noir il a une possibilité d'etre un bord
                 for (k=0;k<8;k++)
                     if ((pgmInit[(j+My[k])*dimx + i + Mx[k]]) != 0)
                         voisin++;
-            if (voisin == 1)
+            if (voisin == 1)//si il n'a que 1 voisin alors il est une extremité (sinon voisin == 2)
             {
                 point_extremite_x.push_back(i);
                 point_extremite_y.push_back(j);
@@ -290,6 +294,8 @@ void PgmFunctions::capt_point_extremite(void)
         #endif //DEBUG_PRINT_pgmF
 }
 
+//debug only
+//crée une image (tmp) pour la quelle il n'y a que les point extremité
 void PgmFunctions::pgm_point_extremiter(void)
 {
     long int i,j;
@@ -311,8 +317,8 @@ void PgmFunctions::pgm_uv_reader(void)
         {
             if (pgmInit[i + j*dimx]>0)
                 {
-                    point_u.push_back(i);
-                    point_v.push_back(j);
+                    point_u.push_back(i);//chaque point blanc est ajouter a point_u --_v
+                    point_v.push_back(j);//----------------------------------------------
                 }
         }
 }

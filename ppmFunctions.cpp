@@ -24,6 +24,8 @@ Copyright 2017 Brodoline Ilya & Pichon Hugot
 #define ppmB 3
 
 
+
+
 void getChannel(char entree[35],char sortie[35],int channel)
 {
     /**         IMPORTATION        **/
