@@ -28,8 +28,6 @@ Copyright 2017 Brodoline Ilya & Pichon Hugot
 #include "pgmFunctions.hpp"
 #include "tgm.hpp"
 
-//michel.chapron1@gmail.com
-
 
 /* MAIN_ ARGV
 ** argv(1) : ppm file in
